@@ -1,0 +1,5 @@
+feat: monorepo scaffold, docker-compose, and project guides
+
+Add npm workspaces (apps/api, apps/web, packages/shared), local
+Postgres/pgvector/Redis/MinIO via docker-compose, initial SQL migration,
+and docs/GUIDE with visual deep dives plus GETTING_STARTED and GIT checklists.
