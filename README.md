@@ -91,6 +91,9 @@ flowchart LR
 
 | | Document | |
 |:--:|----------|--|
+| 📖 | [**docs/GUIDE.md**](docs/GUIDE.md) | **Complete guide** — everything in the project explained |
+| 🚀 | [**docs/GETTING_STARTED.md**](docs/GETTING_STARTED.md) | Local setup & run commands |
+| 📦 | [**docs/GIT.md**](docs/GIT.md) | What to push / never push |
 | 📐 | [**ARCHITECTURE.md**](ARCHITECTURE.md) | Full system design — modules, RAG, APIs, scale |
 | 🔒 | [**SECURITY_PRIVACY.md**](SECURITY_PRIVACY.md) | Security, privacy, hall & vector data |
 | 📋 | [**docs/AUDIT.md**](docs/AUDIT.md) | Architecture audit & remediation |
@@ -141,8 +144,8 @@ flowchart LR
 
 | | |
 |:--|:--|
-| **Now** | Planning & documentation — [architecture](ARCHITECTURE.md) is implementation-ready |
-| **Next** | `docker-compose` · OpenAPI spec · `apps/api` scaffold |
+| **Now** | Docs + monorepo scaffold — see [GUIDE](docs/GUIDE.md) |
+| **Next** | Auth · reader · MinIO chapters |
 
 ---
 

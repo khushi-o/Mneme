@@ -1,0 +1,24 @@
+{
+  "name": "mneme",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mneme — memory-centered reading platform",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present --parallel",
+    "dev:api": "npm run dev -w @mneme/api",
+    "dev:web": "npm run dev -w @mneme/web",
+    "build": "npm run build --workspaces --if-present",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "db:migrate": "npm run db:migrate -w @mneme/api",
+    "db:seed": "npm run db:seed -w @mneme/api"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

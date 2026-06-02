@@ -29,9 +29,9 @@ Audit of planning artifacts before implementation. **Remediation status:** docum
 
 ## Still open (implementation phase)
 
-- [ ] `docker-compose.yml` (postgres + pgvector, redis, minio)
+- [x] `docker-compose.yml` (postgres + pgvector, redis, minio)
+- [x] Application scaffold (`apps/api`, `apps/web`, `packages/shared`)
 - [ ] `docs/openapi.yaml` from §10 APIs
-- [ ] Application scaffold (`apps/api`, `apps/web`)
 - [ ] k6 load tests for hall
 - [ ] RAG eval dataset (50 Q / genre)
 

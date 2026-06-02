@@ -1,0 +1,71 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: mneme-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mneme
+      POSTGRES_PASSWORD: mneme
+      POSTGRES_DB: mneme
+    ports:
+      - "5432:5432"
+    volumes:
+      - mneme_pg_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mneme -d mneme"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: mneme-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - mneme_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  minio:
+    image: minio/minio:latest
+    container_name: mneme-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: mneme
+      MINIO_ROOT_PASSWORD: mneme_secret
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - mneme_minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio-init:
+    image: minio/mc:latest
+    container_name: mneme-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 mneme mneme_secret;
+      mc mb --ignore-existing local/mneme-assets;
+      mc anonymous set download local/mneme-assets/covers 2>/dev/null || true;
+      exit 0;
+      "
+
+volumes:
+  mneme_pg_data:
+  mneme_redis_data:
+  mneme_minio_data:

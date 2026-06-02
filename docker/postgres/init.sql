@@ -1,0 +1,4 @@
+-- Extensions required by Mneme (see ARCHITECTURE.md §9)
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+CREATE EXTENSION IF NOT EXISTS "citext";
+CREATE EXTENSION IF NOT EXISTS "vector";
