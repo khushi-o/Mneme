@@ -13,6 +13,15 @@ const envSchema = z.object({
   DATABASE_URL: z.string().min(1),
   REDIS_URL: z.string().default("redis://localhost:6379"),
   JWT_SECRET: z.string().min(16).default("dev-only-change-me-32chars!!"),
+  S3_ENDPOINT: z.string().url().default("http://localhost:9000"),
+  S3_BUCKET: z.string().default("mneme-assets"),
+  S3_ACCESS_KEY: z.string().default("mneme"),
+  S3_SECRET_KEY: z.string().default("mneme_secret"),
+  S3_REGION: z.string().default("us-east-1"),
+  S3_FORCE_PATH_STYLE: z
+    .string()
+    .optional()
+    .transform((v) => v !== "false" && v !== "0"),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -30,4 +39,12 @@ export const config = {
   redisUrl: parsed.data.REDIS_URL,
   jwtSecret: parsed.data.JWT_SECRET,
   isDev: parsed.data.APP_ENV === "development",
+  s3: {
+    endpoint: parsed.data.S3_ENDPOINT,
+    bucket: parsed.data.S3_BUCKET,
+    accessKey: parsed.data.S3_ACCESS_KEY,
+    secretKey: parsed.data.S3_SECRET_KEY,
+    region: parsed.data.S3_REGION,
+    forcePathStyle: parsed.data.S3_FORCE_PATH_STYLE ?? true,
+  },
 };
