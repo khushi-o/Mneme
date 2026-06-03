@@ -18,7 +18,7 @@ export async function migrate(): Promise<void> {
     );
     const appliedSet = new Set(applied.map((r) => r.name));
 
-    const migrations = ["001_init.sql"];
+    const migrations = ["001_init.sql", "002_auth_tokens.sql"];
 
     for (const name of migrations) {
       if (appliedSet.has(name)) {
