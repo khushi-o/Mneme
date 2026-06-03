@@ -1,4 +1,6 @@
+import { isConnectionRefused, printInfraHint } from "../lib/connectionHint.js";
 import { pool } from "./pool.js";
+import { CHAPTER_SAMPLES } from "../content/chapters.js";
 
 const DEMO_USER = {
   email: "reader@mneme.local",
@@ -57,12 +59,27 @@ export async function seed(): Promise<void> {
       );
       const bookId = bookResult.rows[0].id;
 
-      await client.query(
-        `INSERT INTO book_chapters (book_id, chapter_index, title, content_key)
-         VALUES ($1, 1, 'Chapter One', $2)
-         ON CONFLICT (book_id, chapter_index) DO NOTHING`,
-        [bookId, `books/${book.slug}/chapters/1.html`]
-      );
+      const samples = CHAPTER_SAMPLES[book.slug] ?? [
+        { title: "Chapter One", html: "<article class=\"chapter\"><p>Chapter one.</p></article>" },
+      ];
+
+      for (let i = 0; i < samples.length; i++) {
+        const chapterIndex = i + 1;
+        const sample = samples[i];
+        await client.query(
+          `INSERT INTO book_chapters (book_id, chapter_index, title, content_key)
+           VALUES ($1, $2, $3, $4)
+           ON CONFLICT (book_id, chapter_index) DO UPDATE SET
+             title = EXCLUDED.title,
+             content_key = EXCLUDED.content_key`,
+          [
+            bookId,
+            chapterIndex,
+            sample.title,
+            `books/${book.slug}/chapters/${chapterIndex}.html`,
+          ]
+        );
+      }
 
       await client.query(
         `INSERT INTO user_library_items (user_id, book_id, status)
@@ -84,6 +101,7 @@ export async function seed(): Promise<void> {
 }
 
 seed().catch((err) => {
-  console.error(err);
+  if (isConnectionRefused(err)) printInfraHint("postgres");
+  else console.error(err);
   process.exit(1);
 });
