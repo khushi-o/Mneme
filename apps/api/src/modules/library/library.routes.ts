@@ -27,7 +27,21 @@ libraryRouter.get("/books/:slug", async (req, res, next) => {
     if (rows.length === 0) {
       throw new AppError(404, "Book not found", "BOOK_NOT_FOUND");
     }
-    res.json({ data: rows[0] });
+
+    const chapters = await pool.query(
+      `SELECT id, chapter_index, title, content_key
+       FROM book_chapters
+       WHERE book_id = $1
+       ORDER BY chapter_index ASC`,
+      [rows[0].id]
+    );
+
+    res.json({
+      data: {
+        ...rows[0],
+        chapters: chapters.rows,
+      },
+    });
   } catch (err) {
     next(err);
   }
