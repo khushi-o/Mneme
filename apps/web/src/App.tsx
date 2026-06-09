@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { LoginForm } from "./components/LoginForm";
+import { LoginPage } from "./components/LoginPage";
+import { NavLabel } from "./components/NavLabel";
+import { ReadingHallTeaser } from "./components/ReadingHallTeaser";
 import { Reader } from "./components/Reader";
 import {
   authFetch,
@@ -109,27 +111,40 @@ export default function App() {
 
   if (authLoading) {
     return (
-      <div className="app">
-        <p className="loading">Loading…</p>
+      <div className="page-floral">
+        <div className="page-floral-content">
+          <div className="app">
+            <p className="loading">Loading…</p>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (view.type === "reader" && user) {
     return (
-      <Reader
-        slug={view.slug}
-        bookId={view.bookId}
-        onClose={() => setView({ type: "home" })}
-      />
+      <div className="page-floral page-reader">
+        <Reader
+          slug={view.slug}
+          bookId={view.bookId}
+          onClose={() => setView({ type: "home" })}
+        />
+      </div>
     );
   }
 
+  if (!user) {
+    return <LoginPage />;
+  }
+
   return (
-    <div className="app">
-      <header className="hero">
+    <div className="page-floral">
+      <div className="page-floral-content">
+      <div className="app">
+      <header className="hero hero-bar hero-dreamy">
         <div className="hero-top">
-          <div>
+          <div className="hero-brand">
+            <span className="hero-greek">Μνήμη · Memory</span>
             <h1>Mneme</h1>
             <p className="tagline">Memory made social.</p>
           </div>
@@ -152,14 +167,13 @@ export default function App() {
         </div>
       </header>
 
-      {!user ? (
-        <LoginForm />
-      ) : (
-        <>
+      <>
+          <ReadingHallTeaser />
+
           <section>
-            <h2>My library</h2>
+            <h2 className="section-heading">My library</h2>
             {myLibrary.length === 0 ? (
-              <p style={{ color: "var(--muted)" }}>No books on your shelf yet.</p>
+              <p className="empty-state">No books on your shelf yet.</p>
             ) : (
               <div className="books">
                 {myLibrary.map((item) => (
@@ -175,16 +189,18 @@ export default function App() {
                     <h3>{item.title}</h3>
                     {item.author && <p className="author">{item.author}</p>}
                     {item.description && <p>{item.description}</p>}
-                    <span className="read-cta">Read →</span>
+                    <span className="read-cta">
+                      <NavLabel direction="right">Read</NavLabel>
+                    </span>
                   </article>
                 ))}
               </div>
             )}
           </section>
 
-          <section style={{ marginTop: "2rem" }}>
-            <h2>Catalog</h2>
-            {booksError && <p style={{ color: "#a33" }}>{booksError}</p>}
+          <section className="catalog-section">
+            <h2 className="section-heading">Catalog</h2>
+            {booksError && <p className="text-error">{booksError}</p>}
             <div className="books">
               {books.map((book) => (
                 <article key={book.id} className="book-card">
@@ -195,12 +211,13 @@ export default function App() {
               ))}
             </div>
           </section>
-        </>
-      )}
+      </>
 
       <footer>
         <p>Phase 1 · Reader · MinIO chapters + progress</p>
       </footer>
+    </div>
+    </div>
     </div>
   );
 }

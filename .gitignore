@@ -40,3 +40,6 @@ coverage/
 tmp/
 temp/
 commit-msg.txt
+
+# Local progress (not shared via git)
+PROGRESS.local.md
