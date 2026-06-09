@@ -199,11 +199,13 @@ export function Reader({ slug, bookId, onClose }: Props) {
           <NavLabel direction="left">Back</NavLabel>
         </button>
         <p className="auth-error">{error}</p>
-        <p className="auth-hint">
-          Start Docker (<code>npm run docker:up</code>), then{" "}
-          <code>npm run db:seed</code> and <code>npm run db:seed-content</code>.
-          Restart the API if you just pulled new code.
-        </p>
+        {import.meta.env.DEV && (
+          <p className="auth-hint">
+            Start Docker (<code>npm run docker:up</code>), then{" "}
+            <code>npm run db:seed</code> and <code>npm run db:seed-content</code>.
+            Restart the API if you just pulled new code.
+          </p>
+        )}
       </div>
     );
   }

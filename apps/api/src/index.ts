@@ -1,7 +1,9 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import { config } from "./config.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { globalRateLimit } from "./middleware/rateLimit.js";
 import { aiRouter } from "./modules/ai/ai.routes.js";
 import { authRouter } from "./modules/auth/auth.routes.js";
 import { hallRouter } from "./modules/hall/hall.routes.js";
@@ -18,7 +20,9 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser());
 app.use(express.json());
+app.use(globalRateLimit);
 
 app.use(healthRouter);
 app.use("/v1/auth", authRouter);
@@ -44,6 +48,7 @@ app.listen(config.port, () => {
   console.log(`  books    GET  /v1/books`);
   console.log(`  auth     POST /v1/auth/magic-link`);
   console.log(`  me       GET  /v1/me/library`);
+  console.log(`  me       POST /v1/me/library`);
   console.log(`  reader   GET  /v1/reader/books/:slug/chapters`);
   console.log(`  reader   GET  /v1/reader/books/:slug/chapters/:index/content`);
 });

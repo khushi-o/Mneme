@@ -1,8 +1,14 @@
 import { Router } from "express";
 import { z } from "zod";
+import {
+  ACCESS_TTL_SEC,
+  clearAuthCookies,
+  REFRESH_COOKIE,
+  setAuthCookies,
+} from "../../lib/cookies.js";
 import { requireAuth } from "../../middleware/requireAuth.js";
 import { AppError } from "../../middleware/errorHandler.js";
-import { magicLinkRateLimit } from "../../middleware/rateLimit.js";
+import { authRateLimit, magicLinkRateLimit } from "../../middleware/rateLimit.js";
 import {
   getUserById,
   logout,
@@ -12,6 +18,8 @@ import {
 } from "./auth.service.js";
 
 export const authRouter = Router();
+
+authRouter.use(authRateLimit);
 
 authRouter.post("/magic-link", magicLinkRateLimit, async (req, res, next) => {
   try {
@@ -31,7 +39,11 @@ authRouter.post("/verify", async (req, res, next) => {
   try {
     const body = z.object({ token: z.string().min(10) }).parse(req.body);
     const tokens = await verifyMagicLink(body.token);
-    res.json(tokens);
+    setAuthCookies(res, tokens.access_token, tokens.refresh_token);
+    res.json({
+      expires_in: ACCESS_TTL_SEC,
+      user: tokens.user,
+    });
   } catch (err) {
     if (err instanceof z.ZodError) {
       next(new AppError(400, "Token required", "INVALID_BODY"));
@@ -43,28 +55,31 @@ authRouter.post("/verify", async (req, res, next) => {
 
 authRouter.post("/refresh", async (req, res, next) => {
   try {
-    const body = z.object({ refresh_token: z.string().min(10) }).parse(req.body);
-    const tokens = await refreshTokens(body.refresh_token);
-    res.json(tokens);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      next(new AppError(400, "refresh_token required", "INVALID_BODY"));
+    const refreshToken = req.cookies?.[REFRESH_COOKIE] as string | undefined;
+    if (!refreshToken) {
+      next(new AppError(401, "Session expired", "NO_REFRESH_TOKEN"));
       return;
     }
+    const tokens = await refreshTokens(refreshToken);
+    setAuthCookies(res, tokens.access_token, tokens.refresh_token);
+    res.json({
+      expires_in: ACCESS_TTL_SEC,
+      user: tokens.user,
+    });
+  } catch (err) {
     next(err);
   }
 });
 
 authRouter.post("/logout", async (req, res, next) => {
   try {
-    const body = z.object({ refresh_token: z.string().min(10) }).parse(req.body);
-    const result = await logout(body.refresh_token);
-    res.json(result);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      next(new AppError(400, "refresh_token required", "INVALID_BODY"));
-      return;
+    const refreshToken = req.cookies?.[REFRESH_COOKIE] as string | undefined;
+    if (refreshToken) {
+      await logout(refreshToken);
     }
+    clearAuthCookies(res);
+    res.json({ message: "Signed out" });
+  } catch (err) {
     next(err);
   }
 });

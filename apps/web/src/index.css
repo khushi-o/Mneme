@@ -401,6 +401,10 @@ footer {
   font-weight: 600;
 }
 
+.add-shelf-btn {
+  margin-top: 0.75rem;
+}
+
 .page-floral .read-cta {
   color: var(--enchanted-teal);
 }
