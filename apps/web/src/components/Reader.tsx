@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { NavLabel } from "./NavLabel";
 import {
   fetchBookChapters,
   fetchChapterContent,
@@ -195,7 +196,7 @@ export function Reader({ slug, bookId, onClose }: Props) {
     return (
       <div className="reader-shell">
         <button type="button" className="btn-ghost reader-back" onClick={onClose}>
-          ← Back
+          <NavLabel direction="left">Back</NavLabel>
         </button>
         <p className="auth-error">{error}</p>
         <p className="auth-hint">
@@ -224,93 +225,99 @@ export function Reader({ slug, bookId, onClose }: Props) {
       </div>
 
       <header className="reader-toolbar">
-        <button type="button" className="btn-ghost" onClick={onClose}>
-          ← Library
-        </button>
-        <div className="reader-title-block">
-          <strong>{title}</strong>
-          <span>
-            Chapter {chapterIndex} of {totalChapters}
-            {chapterTitle ? ` · ${chapterTitle}` : ""}
-          </span>
-        </div>
-        <div className="reader-controls">
-          <div className="reader-control-group reader-font-group">
-            <button
-              type="button"
-              className="reader-icon-btn"
-              aria-label="Smaller text"
-              onClick={() => updatePrefs({ font_size: Math.max(14, prefs.font_size - 1) })}
-            >
-              A−
-            </button>
-            <span className="reader-font-size" aria-hidden="true">
-              {prefs.font_size}px
+        <div className="reader-chrome-inner reader-toolbar-row">
+          <button type="button" className="btn-ghost btn-back" onClick={onClose}>
+            <NavLabel direction="left">Library</NavLabel>
+          </button>
+          <div className="reader-title-block">
+            <strong>{title}</strong>
+            <span>
+              Chapter {chapterIndex} of {totalChapters}
+              {chapterTitle ? ` · ${chapterTitle}` : ""}
             </span>
-            <button
-              type="button"
-              className="reader-icon-btn"
-              aria-label="Larger text"
-              onClick={() => updatePrefs({ font_size: Math.min(28, prefs.font_size + 1) })}
-            >
-              A+
-            </button>
           </div>
-          <div className="reader-control-group reader-theme-group" role="group" aria-label="Reading theme">
-            {(["light", "sepia", "dark"] as const).map((theme) => (
+          <div className="reader-controls">
+            <div className="reader-control-group reader-font-group">
               <button
-                key={theme}
                 type="button"
-                className={`reader-theme-swatch theme-swatch-${theme}${prefs.theme === theme ? " active" : ""}`}
-                aria-label={`${theme} theme`}
-                aria-pressed={prefs.theme === theme}
-                onClick={() => updatePrefs({ theme })}
-              />
-            ))}
+                className="reader-icon-btn"
+                aria-label="Smaller text"
+                onClick={() => updatePrefs({ font_size: Math.max(14, prefs.font_size - 1) })}
+              >
+                A−
+              </button>
+              <span className="reader-font-size" aria-hidden="true">
+                {prefs.font_size}px
+              </span>
+              <button
+                type="button"
+                className="reader-icon-btn"
+                aria-label="Larger text"
+                onClick={() => updatePrefs({ font_size: Math.min(28, prefs.font_size + 1) })}
+              >
+                A+
+              </button>
+            </div>
+            <div className="reader-control-group reader-theme-group" role="group" aria-label="Reading theme">
+              {(["light", "sepia", "dark"] as const).map((theme) => (
+                <button
+                  key={theme}
+                  type="button"
+                  className={`reader-theme-swatch theme-swatch-${theme}${prefs.theme === theme ? " active" : ""}`}
+                  aria-label={`${theme} theme`}
+                  aria-pressed={prefs.theme === theme}
+                  onClick={() => updatePrefs({ theme })}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </header>
 
-      {chapterLoading ? (
-        <p className="loading reader-chapter-loading">Loading chapter…</p>
-      ) : (
-        <>
-          {error && <p className="auth-error reader-inline-error">{error}</p>}
-          <article
-            ref={contentRef}
-            className="reader-content"
-            style={{
-              fontSize: `${prefs.font_size}px`,
-              lineHeight: prefs.line_height,
-              paddingLeft: `${prefs.margin_px}px`,
-              paddingRight: `${prefs.margin_px}px`,
-            }}
-            onScroll={scheduleSave}
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
-        </>
-      )}
+      <div className="reader-body">
+        {chapterLoading ? (
+          <p className="loading reader-chapter-loading">Loading chapter…</p>
+        ) : (
+          <>
+            {error && <p className="auth-error reader-inline-error">{error}</p>}
+            <article
+              ref={contentRef}
+              className="reader-content"
+              style={{
+                fontSize: `${prefs.font_size}px`,
+                lineHeight: prefs.line_height,
+                paddingLeft: `${prefs.margin_px}px`,
+                paddingRight: `${prefs.margin_px}px`,
+              }}
+              onScroll={scheduleSave}
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          </>
+        )}
+      </div>
 
       <footer className="reader-nav">
-        <button
-          type="button"
-          className="btn-ghost"
-          disabled={!hasPrev || chapterLoading}
-          onClick={() => goToChapter(chapterIndex - 1)}
-        >
-          ← Previous
-        </button>
-        <span className="reader-nav-label">
-          {chapterIndex} / {totalChapters}
-        </span>
-        <button
-          type="button"
-          className="btn-ghost"
-          disabled={!hasNext || chapterLoading}
-          onClick={() => goToChapter(chapterIndex + 1)}
-        >
-          Next →
-        </button>
+        <div className="reader-chrome-inner reader-nav-inner">
+          <button
+            type="button"
+            className="btn-ghost"
+            disabled={!hasPrev || chapterLoading}
+            onClick={() => goToChapter(chapterIndex - 1)}
+          >
+            <NavLabel direction="left">Previous</NavLabel>
+          </button>
+          <span className="reader-nav-label">
+            {chapterIndex} / {totalChapters}
+          </span>
+          <button
+            type="button"
+            className="btn-ghost"
+            disabled={!hasNext || chapterLoading}
+            onClick={() => goToChapter(chapterIndex + 1)}
+          >
+            <NavLabel direction="right">Next</NavLabel>
+          </button>
+        </div>
       </footer>
     </div>
   );

@@ -28,9 +28,12 @@ export function LoginForm() {
   }
 
   return (
-    <section className="auth-card">
-      <h2>Sign in</h2>
-      <p className="auth-hint">Enter your email — we&apos;ll send a magic link (dev: link shown below).</p>
+    <>
+      <h2 className="auth-heading">Sign in</h2>
+      <p className="auth-hint">
+        Enter your email — we&apos;ll send a magic link
+        <span className="auth-hint-dev"> (dev: link shown below)</span>.
+      </p>
 
       <form onSubmit={handleSubmit} className="auth-form">
         <label htmlFor="email">Email</label>
@@ -43,7 +46,7 @@ export function LoginForm() {
           required
           autoComplete="email"
         />
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="btn-primary" disabled={loading}>
           {loading ? "Sending…" : "Send magic link"}
         </button>
       </form>
@@ -62,6 +65,6 @@ export function LoginForm() {
           <a href={devLink}>Click to sign in (dev magic link)</a>
         </p>
       )}
-    </section>
+    </>
   );
 }

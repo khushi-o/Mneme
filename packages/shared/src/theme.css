@@ -1,0 +1,103 @@
+/* Mneme shared theme — palettes, tokens, surfaces
+   Import in any app: @import "@mneme/shared/theme.css"; */
+
+:root {
+  /* Sanctuary palette (home hero — marble arches, blossoms, stream) */
+  --blossom-pink: #e8b4b8;
+  --deep-rose: #c07a7e;
+  --marble-white: #f5f5f0;
+  --gilded-sunlight: #d4af37;
+  --moss-green: #6b705c;
+  --river-stone: #a5a58d;
+  --enchanted-teal: #7fb3ad;
+  --ethereal-blue: #b8c6d9;
+
+  /* Floral palette (peony / glowup) */
+  --olive-petal: #a3a380;
+  --golden-clover: #d7ce93;
+  --artic-daisy: #efebce;
+  --rose-blush: #d8a48f;
+  --peach-blossom: #bb8588;
+
+  /* Earth palette (reader / hall / water) */
+  --emerald-green: #284139;
+  --wasabi: #808076;
+  --creased-khaki: #f8d794;
+  --egyptian-earth: #b86b30;
+  --noir-de-vigne: #111a19;
+
+  /* Aliases */
+  --emerald: var(--emerald-green);
+  --olive: var(--olive-petal);
+  --khaki: var(--creased-khaki);
+  --earth: var(--egyptian-earth);
+  --noir: var(--noir-de-vigne);
+  --sky: var(--ethereal-blue);
+  --cream: var(--marble-white);
+  --dusty-rose: var(--deep-rose);
+  --terracotta: #e8985e;
+  --marigold: #f2c879;
+  --sage: var(--moss-green);
+  --lavender: #b7a4bd;
+  --lavender-deep: #9a87a8;
+
+  /* Semantic — sanctuary / home world */
+  --paper: var(--marble-white);
+  --paper-dark: var(--blossom-pink);
+  --paper-warm: rgba(245, 245, 240, 0.92);
+  --ink: var(--moss-green);
+  --ink-deep: #3f4233;
+  --muted: var(--river-stone);
+  --accent: var(--enchanted-teal);
+  --accent-hover: #6a9f99;
+  --accent-soft: var(--blossom-pink);
+  --highlight: var(--gilded-sunlight);
+  --card: rgba(245, 245, 240, 0.82);
+  --card-solid: var(--marble-white);
+  --card-border: rgba(212, 175, 55, 0.35);
+  --shadow: rgba(63, 66, 51, 0.12);
+  --shadow-hover: rgba(63, 66, 51, 0.2);
+  --ok: var(--moss-green);
+  --error: #a85a5a;
+  --success-soft: var(--enchanted-teal);
+  --atmosphere: var(--ethereal-blue);
+  --glass-blur: 20px;
+
+  /* Earth world (reader, hall) */
+  --earth-ink: var(--creased-khaki);
+  --earth-muted: var(--wasabi);
+  --earth-card: rgba(17, 26, 25, 0.75);
+  --earth-card-border: rgba(128, 128, 118, 0.45);
+  --earth-accent: var(--egyptian-earth);
+
+  /* Reading Hall */
+  --hall-accent: var(--emerald-green);
+  --hall-accent-deep: #1e332c;
+  --hall-ink: var(--creased-khaki);
+  --hall-muted: var(--wasabi);
+  --hall-card: rgba(17, 26, 25, 0.82);
+  --hall-border: rgba(128, 128, 118, 0.4);
+  --hall-glow: rgba(248, 215, 148, 0.12);
+  --hall-seat-empty: rgba(128, 128, 118, 0.25);
+  --hall-seat-occupied: var(--emerald-green);
+  --hall-seat-friend: var(--enchanted-teal);
+  --hall-seat-mine: var(--egyptian-earth);
+
+  /* Hero backgrounds */
+  --texture-login-hero: url("/assets/login-hero.png");
+  --texture-home-hero: url("/assets/home-hero.jpg");
+  --texture-floral-photo: url("/assets/floral-texture.jpg");
+  --texture-water-photo: url("/assets/water-texture.jpg");
+
+  --floral-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill-opacity='0.45'%3E%3Ccircle cx='22' cy='28' r='7' fill='%23e8b4b8'/%3E%3Ccircle cx='88' cy='72' r='5.5' fill='%23b8c6d9'/%3E%3Ccircle cx='58' cy='18' r='4' fill='%23d4af37'/%3E%3Cellipse cx='95' cy='22' rx='9' ry='4.5' fill='%23c07a7e' transform='rotate(-25 95 22)'/%3E%3C/g%3E%3C/svg%3E");
+
+  --font-ui: "DM Sans", system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+}
+
+.surface-floral {
+  background-color: var(--card-solid);
+  background-image: var(--floral-texture);
+  background-size: 120px 120px;
+  background-blend-mode: multiply;
+}
