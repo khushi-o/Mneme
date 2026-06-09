@@ -13,16 +13,18 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1058.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
-    "sanitize-html": "^2.14.0",
     "jose": "^6.2.3",
     "pg": "^8.13.1",
+    "sanitize-html": "^2.14.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.5",
