@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
 import { pool } from "../../db/pool.js";
+import { clientMessage } from "../../lib/clientMessage.js";
 import { sanitizeChapterHtml } from "../../lib/sanitizeHtml.js";
 import { getObjectText } from "../../lib/storage.js";
 import { isObjectNotFound } from "../../lib/storageErrors.js";
@@ -100,7 +101,10 @@ readerRouter.get(
         if (isObjectNotFound(err)) {
           throw new AppError(
             404,
-            "Chapter file missing in MinIO. Run npm run docker:up, then npm run db:seed-content.",
+            clientMessage(
+              "Chapter file missing in MinIO. Run npm run docker:up, then npm run db:seed-content.",
+              "This chapter is not available yet. Please try again later."
+            ),
             "CONTENT_NOT_FOUND"
           );
         }

@@ -1,6 +1,7 @@
 import { SignJWT, jwtVerify } from "jose";
 import { config } from "../../config.js";
 import { pool } from "../../db/pool.js";
+import { isEmailDeliveryConfigured, sendEmail } from "../../lib/email.js";
 import { generateToken, hashToken } from "../../lib/tokens.js";
 import { AppError } from "../../middleware/errorHandler.js";
 
@@ -104,6 +105,13 @@ export async function requestMagicLink(email: string) {
   const verifyPath = `/?token=${encodeURIComponent(rawToken)}`;
   const magicLink = `${config.webUrl}${verifyPath}`;
 
+  await sendEmail({
+    to: normalized,
+    subject: "Your Mneme sign-in link",
+    text: `Sign in to Mneme:\n\n${magicLink}\n\nThis link expires in 15 minutes.`,
+    html: `<p>Sign in to Mneme:</p><p><a href="${magicLink}">${magicLink}</a></p><p>This link expires in 15 minutes.</p>`,
+  });
+
   if (config.isDev) {
     console.log("\n--- Mneme magic link (dev) ---");
     console.log(magicLink);
@@ -112,7 +120,9 @@ export async function requestMagicLink(email: string) {
 
   return {
     message: "If that email is valid, a sign-in link was sent.",
-    ...(config.isDev ? { dev_magic_link: magicLink } : {}),
+    ...(config.isDev && !isEmailDeliveryConfigured()
+      ? { dev_magic_link: magicLink }
+      : {}),
   };
 }
 

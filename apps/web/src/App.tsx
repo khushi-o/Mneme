@@ -4,6 +4,7 @@ import { NavLabel } from "./components/NavLabel";
 import { ReadingHallTeaser } from "./components/ReadingHallTeaser";
 import { Reader } from "./components/Reader";
 import {
+  addToLibrary,
   authFetch,
   consumeVerifyTokenFromUrl,
   fetchMe,
@@ -48,6 +49,7 @@ export default function App() {
   const [books, setBooks] = useState<Book[]>([]);
   const [myLibrary, setMyLibrary] = useState<LibraryItem[]>([]);
   const [booksError, setBooksError] = useState<string | null>(null);
+  const [addingBookId, setAddingBookId] = useState<string | null>(null);
 
   const loadSession = useCallback(async () => {
     const me = await fetchMe();
@@ -103,6 +105,19 @@ export default function App() {
     setUser(null);
     setMyLibrary([]);
     setView({ type: "home" });
+  }
+
+  async function handleAddToShelf(bookId: string) {
+    setAddingBookId(bookId);
+    setBooksError(null);
+    try {
+      const item = await addToLibrary(bookId);
+      setMyLibrary((prev) => [item, ...prev]);
+    } catch (err) {
+      setBooksError(err instanceof Error ? err.message : "Could not add book");
+    } finally {
+      setAddingBookId(null);
+    }
   }
 
   function openReader(item: LibraryItem) {
@@ -202,13 +217,28 @@ export default function App() {
             <h2 className="section-heading">Catalog</h2>
             {booksError && <p className="text-error">{booksError}</p>}
             <div className="books">
-              {books.map((book) => (
-                <article key={book.id} className="book-card">
-                  <h3>{book.title}</h3>
-                  {book.author && <p className="author">{book.author}</p>}
-                  {book.description && <p>{book.description}</p>}
-                </article>
-              ))}
+              {books.map((book) => {
+                const onShelf = myLibrary.some((item) => item.book_id === book.id);
+                return (
+                  <article key={book.id} className="book-card">
+                    <h3>{book.title}</h3>
+                    {book.author && <p className="author">{book.author}</p>}
+                    {book.description && <p>{book.description}</p>}
+                    {onShelf ? (
+                      <span className="badge-status">On shelf</span>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn-ghost add-shelf-btn"
+                        disabled={addingBookId === book.id}
+                        onClick={() => handleAddToShelf(book.id)}
+                      >
+                        {addingBookId === book.id ? "Adding…" : "Add to shelf"}
+                      </button>
+                    )}
+                  </article>
+                );
+              })}
             </div>
           </section>
       </>

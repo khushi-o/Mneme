@@ -31,8 +31,13 @@ export function LoginForm() {
     <>
       <h2 className="auth-heading">Sign in</h2>
       <p className="auth-hint">
-        Enter your email — we&apos;ll send a magic link
-        <span className="auth-hint-dev"> (dev: link shown below)</span>.
+        Enter your email — we&apos;ll send a magic link.
+        {import.meta.env.DEV && (
+          <span className="auth-hint-dev">
+            {" "}
+            (Without Postmark in .env, the link appears below in dev.)
+          </span>
+        )}
       </p>
 
       <form onSubmit={handleSubmit} className="auth-form">
@@ -55,8 +60,9 @@ export function LoginForm() {
 
       {sent && !error && (
         <p className="auth-success">
-          Check your email for a sign-in link.
-          {devLink && " In development, use the link below."}
+          {devLink
+            ? "Development mode — use the link below to sign in."
+            : "Check your email for a sign-in link."}
         </p>
       )}
 
