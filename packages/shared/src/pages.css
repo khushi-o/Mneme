@@ -1,0 +1,825 @@
+/* Page worlds — login hero, sanctuary home, earth/water reader
+   Import: @import "@mneme/shared/pages.css"; */
+
+/* ── Login (surrealist hero + frosted glass) ─────────────────────────────── */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.login-bg {
+  background-color: var(--cream);
+  background-image: var(--texture-login-hero);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.login-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(242, 233, 217, 0.15) 0%,
+    rgba(40, 65, 57, 0.35) 100%
+  );
+  pointer-events: none;
+}
+
+.login-center {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-card {
+  background: rgba(245, 245, 240, 0.12);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid rgba(245, 245, 240, 0.35);
+  border-radius: 16px;
+  padding: 2rem 1.75rem;
+  box-shadow:
+    0 8px 32px rgba(63, 66, 51, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.login-brand {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.login-brand .hero-greek {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  color: rgba(245, 245, 240, 0.92);
+  text-transform: uppercase;
+}
+
+.login-brand h1 {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(63, 66, 51, 0.45);
+}
+
+.login-brand .tagline {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--blossom-pink);
+  font-size: 1.05rem;
+  text-shadow: 0 1px 8px rgba(63, 66, 51, 0.35);
+}
+
+.login-card .auth-hint {
+  color: rgba(245, 245, 240, 0.88);
+}
+
+.login-card .auth-form label {
+  color: rgba(245, 245, 240, 0.92);
+}
+
+.login-card .auth-form input {
+  background: rgba(63, 66, 51, 0.3);
+  border-color: rgba(212, 175, 55, 0.35);
+  color: #fff;
+}
+
+.login-card .auth-form input::placeholder {
+  color: rgba(245, 245, 240, 0.45);
+}
+
+.login-card .auth-form input:focus {
+  border-color: var(--gilded-sunlight);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.login-card .btn-primary {
+  background: var(--enchanted-teal);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(63, 66, 51, 0.3);
+}
+
+.login-card .btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.login-card .auth-error {
+  color: #ffc9c9;
+}
+
+.login-card .auth-success {
+  color: #b8e6d8;
+}
+
+.login-card .dev-link a {
+  color: var(--gilded-sunlight);
+}
+
+/* ── Sanctuary home (full-bleed hero + frosted glass) ────────────────────── */
+
+.page-floral {
+  min-height: 100vh;
+  position: relative;
+  color: var(--ink);
+  background-color: var(--ethereal-blue);
+  background-image: var(--texture-home-hero);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.page-floral::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(184, 198, 217, 0.12) 0%,
+    rgba(232, 180, 184, 0.08) 35%,
+    rgba(107, 112, 92, 0.18) 70%,
+    rgba(63, 66, 51, 0.28) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-floral-content {
+  position: relative;
+  z-index: 1;
+}
+
+.page-floral h1 {
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(63, 66, 51, 0.45);
+}
+
+.page-floral h2,
+.page-floral h1,
+.page-floral .hero h1 {
+  color: #fffef9;
+  text-shadow: 0 2px 16px rgba(63, 66, 51, 0.5);
+}
+
+.page-floral .section-heading {
+  color: #fffef9;
+  border-bottom-color: var(--gilded-sunlight);
+  text-shadow: 0 2px 14px rgba(63, 66, 51, 0.55);
+}
+
+.page-floral .hero-greek {
+  color: rgba(245, 245, 240, 0.9);
+  text-shadow: 0 1px 6px rgba(63, 66, 51, 0.35);
+}
+
+.page-floral .tagline {
+  color: #f5c4ca;
+  text-shadow: 0 1px 10px rgba(63, 66, 51, 0.45);
+}
+
+.page-floral .user-bar {
+  color: #fffef9;
+  text-shadow: 0 1px 6px rgba(63, 66, 51, 0.4);
+}
+
+.page-floral .btn-primary {
+  background: var(--enchanted-teal);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(127, 179, 173, 0.45);
+}
+
+.page-floral .btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.page-floral .btn-ghost {
+  color: #fff;
+  border-color: rgba(245, 245, 240, 0.45);
+  background: rgba(245, 245, 240, 0.08);
+}
+
+.page-floral .btn-ghost:hover {
+  background: rgba(245, 245, 240, 0.18);
+  border-color: var(--gilded-sunlight);
+}
+
+.page-floral .glass-panel,
+.page-floral .book-card,
+.page-floral .auth-card {
+  background: rgba(252, 250, 244, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow:
+    0 8px 28px rgba(63, 66, 51, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* ── Dreamy hero — ethereal glass over sanctuary ─────────────────────────── */
+
+.page-floral .hero-dreamy {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: 2rem 2rem 1.5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  background: rgba(255, 252, 245, 0.18);
+  backdrop-filter: blur(32px) saturate(1.25);
+  -webkit-backdrop-filter: blur(32px) saturate(1.25);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  box-shadow:
+    0 12px 48px rgba(63, 66, 51, 0.1),
+    0 0 80px rgba(232, 180, 184, 0.18),
+    0 0 120px rgba(212, 175, 55, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(212, 175, 55, 0.1);
+}
+
+.page-floral .hero-dreamy::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 75% 55% at 15% 15%, rgba(245, 196, 202, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 65% 50% at 85% 85%, rgba(212, 175, 55, 0.22) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(255, 255, 255, 0.14) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-floral .hero-dreamy::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.06) 60deg,
+    transparent 120deg,
+    rgba(245, 196, 202, 0.08) 200deg,
+    transparent 280deg
+  );
+  animation: hero-shimmer 14s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-floral .hero-dreamy::after {
+    animation: none;
+  }
+}
+
+@keyframes hero-shimmer {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.page-floral .hero-dreamy .hero-top,
+.page-floral .hero-dreamy .status {
+  position: relative;
+  z-index: 1;
+}
+
+.page-floral .hero-dreamy .hero-top {
+  text-align: left;
+}
+
+.page-floral .hero-dreamy h1 {
+  font-size: 3.1rem;
+  letter-spacing: 0.03em;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #faf3e8 40%,
+    #f5c4ca 85%,
+    #e8b4b8 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 3px 16px rgba(63, 66, 51, 0.35));
+}
+
+.page-floral .hero-dreamy .hero-greek {
+  color: rgba(255, 254, 249, 0.88);
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  text-shadow: 0 1px 10px rgba(63, 66, 51, 0.45);
+}
+
+.page-floral .hero-dreamy .tagline {
+  color: #ffe0e4;
+  font-size: 1.2rem;
+  margin-top: 0.35rem;
+  text-shadow:
+    0 0 24px rgba(245, 196, 202, 0.55),
+    0 2px 10px rgba(63, 66, 51, 0.4);
+}
+
+.page-floral .hero-dreamy .user-bar span {
+  color: rgba(255, 254, 249, 0.95);
+  text-shadow: 0 1px 8px rgba(63, 66, 51, 0.5);
+  font-weight: 500;
+}
+
+.page-floral .hero-dreamy .btn-ghost {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fffef9;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(63, 66, 51, 0.12);
+}
+
+.page-floral .hero-dreamy .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+}
+
+.page-floral .hero-dreamy .status {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 254, 249, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 24px rgba(127, 179, 173, 0.25);
+  font-weight: 500;
+}
+
+.page-floral .hero-dreamy .status-dot {
+  box-shadow: 0 0 10px rgba(155, 163, 129, 0.8);
+}
+
+.page-floral .status {
+  background: rgba(252, 250, 244, 0.72);
+  border-color: rgba(212, 175, 55, 0.35);
+  color: var(--moss-green);
+  font-weight: 500;
+}
+
+.page-floral .book-card {
+  border-left: 3px solid var(--deep-rose);
+}
+
+.page-floral .book-card h3 {
+  color: #2a2e24;
+  font-weight: 600;
+}
+
+.page-floral .book-card .author {
+  color: #a84852;
+  font-weight: 500;
+}
+
+.page-floral .book-card p {
+  color: #4a5040;
+  line-height: 1.55;
+}
+
+.page-floral .read-cta {
+  color: #4a8f88;
+  font-weight: 700;
+}
+
+.page-floral .read-cta:hover {
+  color: #3a7570;
+}
+
+.page-floral .book-card-clickable:hover {
+  border-left-color: var(--gilded-sunlight);
+  box-shadow: 0 12px 32px rgba(63, 66, 51, 0.22);
+  background: rgba(252, 250, 244, 0.92);
+}
+
+.page-floral .hall-teaser {
+  background: rgba(252, 250, 244, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-left: 3px solid var(--emerald-green);
+  box-shadow:
+    0 8px 28px rgba(63, 66, 51, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.page-floral .hall-teaser::before {
+  display: none;
+}
+
+.page-floral .hall-teaser-copy h2 {
+  color: #b85a62;
+}
+
+.page-floral .hall-teaser-copy p {
+  color: #3f4233;
+  line-height: 1.55;
+}
+
+.page-floral .hall-badge {
+  color: #3f4233;
+  background: rgba(232, 180, 184, 0.65);
+  font-weight: 600;
+}
+
+.page-floral .hall-teaser-meta {
+  color: #6b705c;
+}
+
+.page-floral .badge-status {
+  color: #3f4233;
+  background: rgba(232, 180, 184, 0.7);
+  font-weight: 600;
+}
+
+.page-floral footer {
+  color: rgba(245, 245, 240, 0.85);
+  text-shadow: 0 1px 4px rgba(63, 66, 51, 0.4);
+}
+
+.page-floral .empty-state {
+  color: var(--river-stone);
+}
+
+/* ── Reader (full-page heavily blurred sanctuary hero) ───────────────────── */
+
+.page-floral.page-reader {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--ink-deep);
+  background-image: none;
+  overflow-x: hidden;
+}
+
+.page-floral.page-reader::before {
+  display: block;
+  content: "";
+  position: fixed;
+  inset: -48px;
+  z-index: 0;
+  background-image: var(--texture-home-hero);
+  background-size: cover;
+  background-position: center;
+  filter: blur(36px);
+  transform: scale(1.1);
+  pointer-events: none;
+}
+
+.page-floral.page-reader::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 85% 75% at 50% 48%, transparent 35%, rgba(63, 66, 51, 0.55) 100%),
+    rgba(63, 66, 51, 0.3);
+  pointer-events: none;
+}
+
+.page-reader:has(.reader-shell.theme-sepia)::after {
+  background:
+    radial-gradient(ellipse 85% 75% at 50% 48%, transparent 35%, rgba(107, 112, 92, 0.5) 100%),
+    rgba(107, 112, 92, 0.28);
+}
+
+.page-reader:has(.reader-shell.theme-light)::after {
+  background:
+    radial-gradient(ellipse 85% 75% at 50% 48%, transparent 35%, rgba(184, 198, 217, 0.55) 100%),
+    rgba(184, 198, 217, 0.32);
+}
+
+.page-reader:has(.reader-shell.theme-dark)::after {
+  background:
+    radial-gradient(ellipse 85% 75% at 50% 48%, transparent 32%, rgba(63, 66, 51, 0.62) 100%),
+    rgba(63, 66, 51, 0.35);
+}
+
+.page-reader .reader-shell {
+  min-height: 100vh;
+  background: transparent;
+  color: var(--marble-white);
+  position: relative;
+  z-index: 1;
+}
+
+.page-reader .reader-chrome-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page-reader .reader-toolbar .reader-chrome-inner,
+.page-reader .reader-nav .reader-chrome-inner {
+  max-width: none;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.page-reader .reader-toolbar-row {
+  justify-content: space-between;
+}
+
+.page-reader .reader-title-block {
+  flex: 1;
+  text-align: center;
+  padding: 0 0.75rem;
+  min-width: 0;
+}
+
+.page-reader .reader-controls {
+  flex-shrink: 0;
+  margin-left: 0;
+}
+
+.page-reader .btn-back {
+  flex-shrink: 0;
+}
+
+.page-reader .reader-toolbar,
+.page-reader .reader-nav {
+  background: rgba(45, 48, 40, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-color: rgba(212, 175, 55, 0.22);
+  margin: 0;
+  border-radius: 0;
+  padding: 0.65rem 1.25rem;
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .reader-toolbar,
+.page-reader:has(.reader-shell.theme-sepia) .reader-nav {
+  background: rgba(245, 245, 240, 0.38);
+}
+
+.page-reader:has(.reader-shell.theme-light) .reader-toolbar,
+.page-reader:has(.reader-shell.theme-light) .reader-nav {
+  background: rgba(255, 255, 252, 0.42);
+}
+
+.page-reader .reader-toolbar {
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.page-reader .reader-nav {
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.page-reader .reader-body {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 1.25rem;
+  min-height: 0;
+}
+
+.page-reader .reader-content {
+  width: 100%;
+  max-width: 42rem;
+  flex: 1;
+  min-height: 0;
+  margin: 0 auto;
+  background: rgba(45, 48, 40, 0.78);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 16px;
+  box-shadow:
+    0 16px 48px rgba(17, 26, 25, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .reader-content {
+  background: rgba(245, 245, 240, 0.82);
+  border-color: rgba(212, 175, 55, 0.35);
+  box-shadow:
+    0 16px 48px rgba(63, 66, 51, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.page-reader:has(.reader-shell.theme-light) .reader-content {
+  background: rgba(255, 255, 252, 0.88);
+  border-color: rgba(127, 179, 173, 0.35);
+}
+
+.page-reader:has(.reader-shell.theme-dark) .reader-content {
+  background: rgba(35, 38, 32, 0.85);
+  border-color: rgba(212, 175, 55, 0.28);
+}
+
+.page-reader .reader-title-block strong {
+  color: #f5c4ca;
+  font-family: var(--font-display);
+  text-shadow: 0 1px 8px rgba(17, 26, 25, 0.35);
+}
+
+.page-reader .reader-title-block span,
+.page-reader .reader-nav-label,
+.page-reader .reader-font-size {
+  color: #ebe6d8;
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .reader-title-block strong,
+.page-reader:has(.reader-shell.theme-light) .reader-title-block strong {
+  color: #b85a62;
+  text-shadow: none;
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .reader-title-block span,
+.page-reader:has(.reader-shell.theme-sepia) .reader-nav-label,
+.page-reader:has(.reader-shell.theme-sepia) .reader-font-size,
+.page-reader:has(.reader-shell.theme-light) .reader-title-block span,
+.page-reader:has(.reader-shell.theme-light) .reader-nav-label,
+.page-reader:has(.reader-shell.theme-light) .reader-font-size {
+  color: var(--moss-green);
+}
+
+.page-reader .btn-ghost {
+  color: #fffef8;
+  border-color: rgba(212, 175, 55, 0.45);
+  background: rgba(63, 66, 51, 0.45);
+}
+
+.page-reader .btn-ghost:hover:not(:disabled) {
+  background: rgba(212, 175, 55, 0.22);
+  border-color: var(--gilded-sunlight);
+  color: #fffef8;
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .btn-ghost,
+.page-reader:has(.reader-shell.theme-light) .btn-ghost {
+  color: var(--moss-green);
+  background: rgba(245, 245, 240, 0.55);
+  border-color: rgba(127, 179, 173, 0.45);
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .btn-ghost:hover:not(:disabled),
+.page-reader:has(.reader-shell.theme-light) .btn-ghost:hover:not(:disabled) {
+  color: var(--ink-deep);
+  background: rgba(232, 180, 184, 0.35);
+  border-color: var(--deep-rose);
+}
+
+.page-reader .reader-icon-btn {
+  color: #fffef8;
+}
+
+.page-reader .reader-icon-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .reader-icon-btn,
+.page-reader:has(.reader-shell.theme-light) .reader-icon-btn {
+  color: var(--moss-green);
+}
+
+.page-reader .reader-font-group {
+  background: rgba(63, 66, 51, 0.45);
+  border-color: rgba(212, 175, 55, 0.28);
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .reader-font-group,
+.page-reader:has(.reader-shell.theme-light) .reader-font-group {
+  background: rgba(245, 245, 240, 0.55);
+  border-color: rgba(127, 179, 173, 0.3);
+}
+
+.page-reader .reader-progress-bar {
+  background: rgba(212, 175, 55, 0.2);
+  margin: 0;
+  border-radius: 0;
+}
+
+.page-reader .reader-progress-fill {
+  background: linear-gradient(90deg, var(--gilded-sunlight), var(--enchanted-teal));
+  box-shadow: 0 0 8px rgba(127, 179, 173, 0.5);
+}
+
+.page-reader .reader-content .chapter h1 {
+  color: #f5c4ca;
+  font-family: var(--font-display);
+  text-shadow: 0 1px 10px rgba(17, 26, 25, 0.3);
+}
+
+.page-reader .reader-content .chapter .lead {
+  color: #e8dda8;
+  font-style: italic;
+}
+
+.page-reader .reader-content .chapter p {
+  color: #fffef9;
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .reader-content .chapter h1,
+.page-reader:has(.reader-shell.theme-light) .reader-content .chapter h1 {
+  color: #b85a62;
+  text-shadow: none;
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .reader-content .chapter .lead,
+.page-reader:has(.reader-shell.theme-light) .reader-content .chapter .lead {
+  color: #6b705c;
+}
+
+.page-reader:has(.reader-shell.theme-sepia) .reader-content .chapter p,
+.page-reader:has(.reader-shell.theme-light) .reader-content .chapter p {
+  color: #2a2e24;
+}
+
+.page-reader:has(.reader-shell.theme-dark) .reader-content .chapter h1 {
+  color: #f5c4ca;
+}
+
+.page-reader:has(.reader-shell.theme-dark) .reader-content .chapter p {
+  color: #fffef9;
+}
+
+.page-reader .reader-chapter-loading,
+.page-reader .loading {
+  color: #fffef8;
+  align-self: center;
+}
+
+.page-reader .reader-inline-error {
+  align-self: center;
+  max-width: 42rem;
+  width: 100%;
+}
+
+.page-reader .reader-theme-swatch.active {
+  box-shadow: 0 0 0 2px rgba(45, 48, 40, 0.8), 0 0 0 3.5px var(--gilded-sunlight);
+}
+
+/* ── Earth / water world (hall, AI — Phase 2+) ───────────────────────────── */
+
+.page-earth {
+  min-height: 100vh;
+  color: var(--earth-ink);
+  background-color: var(--noir-de-vigne);
+  background-image:
+    var(--texture-water-photo),
+    radial-gradient(ellipse 100% 80% at 25% 10%, rgba(40, 65, 57, 0.85) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 70% at 75% 90%, rgba(248, 215, 148, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(127, 179, 173, 0.15) 0%, transparent 60%),
+    linear-gradient(165deg, var(--noir-de-vigne) 0%, var(--emerald-green) 45%, #1a2826 100%);
+  background-size: cover, auto, auto, auto, auto;
+  background-position: center, center, center, center, center;
+  background-attachment: fixed;
+}
+
+.page-earth h1,
+.page-earth h2,
+.page-earth h3 {
+  color: var(--creased-khaki);
+}
+
+.page-earth .btn-primary {
+  background: var(--egyptian-earth);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(184, 107, 48, 0.35);
+}
+
+.page-earth .btn-primary:hover:not(:disabled) {
+  background: var(--terracotta);
+}
+
+.page-earth .card-glass,
+.page-earth .book-card {
+  background: var(--earth-card);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--earth-card-border);
+  color: var(--earth-ink);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.page-earth .btn-ghost {
+  color: var(--creased-khaki);
+  border-color: var(--earth-card-border);
+}
+
+.page-earth .btn-ghost:hover {
+  background: rgba(128, 128, 118, 0.2);
+}
+
+.page-earth .muted,
+.page-earth .auth-hint,
+.page-earth .empty-state {
+  color: var(--earth-muted);
+}
